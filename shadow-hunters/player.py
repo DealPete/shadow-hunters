@@ -100,6 +100,11 @@ class Player:
         # Roll dice
         self.gc.tell_h("{} is rolling for movement...", [self.user_id])
         roll_result = self.rollDice('area')
+        while self.gc.getAreaFromRoll(roll_result) == self.location:
+            if self.location is None:
+                break
+            self.gc.tell_h("{} has to reroll...", [self.user_id])
+            roll_result = self.rollDice('area')
 
         if self.hasEquipment("Mystic Compass"):
 
@@ -107,6 +112,11 @@ class Player:
             self.gc.tell_h("{}'s {} lets them roll again!",
                            [self.user_id, "Mystic Compass"])
             second_roll = self.rollDice('area')
+            while self.gc.getAreaFromRoll(second_roll) == self.location:
+                if self.location is None:
+                    break   
+                self.gc.tell_h("{} has to reroll...", [self.user_id])
+                second_roll = self.rollDice('area')
 
             # Pick the preferred roll
             data = {'options': ["Use {}".format(
@@ -119,7 +129,11 @@ class Player:
 
             # Select an area
             self.gc.tell_h("{} is selecting an area...", [self.user_id])
-            data = {'options': self.gc.getAreas()}
+            eligibleAreas = self.gc.getAreas()
+            # can't stay at current location 
+            if self.location is not None:
+                eligibleAreas.remove(self.location.name)
+            data = {'options': eligibleAreas}
             destination = self.gc.ask_h('select', data, self.user_id)['value']
 
             # Get Area object from area name
@@ -302,7 +316,7 @@ class Player:
 
         # Set values based on type of roll
         if type == "area":
-            ask_data = {'options': ['Roll the dice!']}
+            ask_data = {'options': ['Roll to move!']}
             display_data = {'type': 'roll',
                             '4-sided': roll_4, '6-sided': roll_6}
             message = ("{} rolled {}!", [self.user_id, sum])
