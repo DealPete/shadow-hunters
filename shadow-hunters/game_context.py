@@ -38,6 +38,9 @@ class GameContext:
         # Instantiate status
         self.game_over = False
 
+        self.lastKiller = None
+        self.lastKilled = None
+
         # Instantiate message handlers
         self.ask_h = ask_h
         self.tell_h = tell_h
@@ -120,6 +123,30 @@ class GameContext:
                     destination_Area = a
 
         return destination_Area
+
+    def getAdjacentPlayers(self, player):
+        if player.location is None:
+            return None
+        else:
+            idx = self.turn_order.index(player)
+            idx_left = idx
+            idx_right = idx
+
+            while(self.turn_order[idx_left].state > 0):  # need live player
+                if idx_left == len(self.turn_order) - 1:
+                    idx_left = 0
+                else:
+                    idx_left += 1
+            leftNeighbour = self.turn_order[idx_left]
+
+            while(self.turn_order[idx_right].state > 0):  # need live player
+                if idx_right == 0:
+                    idx_right = len(self.turn_order) - 1
+                else:
+                    idx_right -= 1
+            rightNeighbour = self.turn_order[idx_right]
+
+            return [leftNeighbour, rightNeighbour]
 
     def _checkWinConditions(self):
         return [p for p in self.players if p.character.win_cond(self, p)]

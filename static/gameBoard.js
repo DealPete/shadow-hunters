@@ -80,7 +80,7 @@ var GameBoard = new Phaser.Class ({
     preload: function () {
         // url where gfx resources are stored
         var gfx = "https://d2naeox1pchp13.cloudfront.net/";
-
+        // var gfx = "https://0.0.0.0/static/assets/";
 
         // loading screen
         var progressBar = this.add.graphics();
@@ -194,7 +194,19 @@ var GameBoard = new Phaser.Class ({
         this.load.image('Ellen', '/static/assets/Ellen.png');
         this.load.image('Ultra Soul', '/static/assets/Ultrasoul.png');
         this.load.image('Werewolf', '/static/assets/Werewolf.png');
+
         this.load.image('Anon', '/static/assets/anon.png');
+        
+        this.load.image('Agnes', '/static/assets/Agnes.png');
+        this.load.image('Bryan', '/static/assets/Bryan.png');
+        this.load.image('Charles', '/static/assets/Charles.png');
+        this.load.image('Daniel', '/static/assets/Daniel.png');
+        this.load.image('David', '/static/assets/David.png');
+        this.load.image('Emi', '/static/assets/Emi.png');
+        this.load.image('Gregor', '/static/assets/Gregor.png');
+        this.load.image('Unknown', '/static/assets/Unknown.png');
+        this.load.image('Wight', '/static/assets/Wight.png');
+        
         //this.load.svg('Allie', '/static/assets/Allie.svg', {width: 123, height: 123});
 
         //display popups

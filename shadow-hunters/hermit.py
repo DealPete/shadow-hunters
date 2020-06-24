@@ -2,6 +2,7 @@ import constants
 
 # hermit.py
 
+# TODO: Unknown needs a three-button chooser, currently displays third option as plain text
 
 def blackmail(args):
 
@@ -16,22 +17,34 @@ def blackmail(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
+    unknown = target.character.name == 'Unknown'
+
     # If target is neutral or hunter, must give equipment or take 1 damage
-    if target.character.alleg > 0:
+    if target.character.alleg > 0 or unknown:
 
         # Target is neutral or hunter, get decision
-        target.gc.tell_h(
-            "You are a {}.",
-            [constants.ALLEGIANCE_MAP[target.character.alleg]],
-            target.socket_id
-        )
-        if len(target.equipment):
-            data = {'options': [
-                "Give an equipment card", "Receive 1 damage"]}
+        if unknown:
+            target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+            if len(target.equipment):
+                data = {'options': [
+                    "Give an equipment card", "Receive 1 damage", "Do nothing"]}
+            else:
+                data = {'options': ["Receive 1 damage", "Do nothing"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
         else:
-            data = {'options': ["Receive 1 damage"]}
-        decision = target.gc.ask_h(
-            'yesno', data, target.user_id)['value']
+            target.gc.tell_h(
+                "You are a {}.",
+                [constants.ALLEGIANCE_MAP[target.character.alleg]],
+                target.socket_id
+            )
+            if len(target.equipment):
+                data = {'options': [
+                    "Give an equipment card", "Receive 1 damage"]}
+            else:
+                data = {'options': ["Receive 1 damage"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
 
         # Branch on decision
         if decision == "Give an equipment card":
@@ -42,12 +55,14 @@ def blackmail(args):
             # Transfer equipment from target to user
             target.giveEquipment(args['self'], eq)
 
-        else:
+        elif decision == "Receive 1 damage":
 
             # Target takes 1 damage
             new_damage = target.moveDamage(-1, args['self'])
             target.gc.tell_h("{} took {} damage!",
                              [target.user_id, "1"])
+        else:
+            target.gc.tell_h("{} did nothing.", [target.user_id])
 
     else:
 
@@ -72,20 +87,31 @@ def greed(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
-    # If target is neutral or shadow, must give equipment or take 1 damage
-    if target.character.alleg < 2:
+    unknown = target.character.name == 'Unknown'
 
-        # Target is neutral or shadow, get decision
-        target.gc.tell_h(
-            "You are a {}.",
-            [constants.ALLEGIANCE_MAP[target.character.alleg]],
-            target.socket_id
-        )
-        if len(target.equipment):
-            data = {'options': ["Give an equipment card", "Receive 1 damage"]}
+    # If target is neutral or shadow, must give equipment or take 1 damage
+    if target.character.alleg < 2 or unknown:
+        if unknown:
+            target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+            if len(target.equipment):
+                data = {'options': [
+                    "Give an equipment card", "Receive 1 damage", "Do nothing"]}
+            else:
+                data = {'options': ["Receive 1 damage", "Do nothing"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
         else:
-            data = {'options': ["Receive 1 damage"]}
-        decision = target.gc.ask_h('yesno', data, target.user_id)['value']
+            # Target is neutral or shadow, get decision
+            target.gc.tell_h(
+                "You are a {}.",
+                [constants.ALLEGIANCE_MAP[target.character.alleg]],
+                target.socket_id
+            )
+            if len(target.equipment):
+                data = {'options': ["Give an equipment card", "Receive 1 damage"]}
+            else:
+                data = {'options': ["Receive 1 damage"]}
+            decision = target.gc.ask_h('yesno', data, target.user_id)['value']
 
         # Branch on decision
         if decision == "Give an equipment card":
@@ -96,11 +122,14 @@ def greed(args):
             # Transfer equipment from target to user
             target.giveEquipment(args['self'], eq)
 
-        else:
+        elif decision == "Receive 1 damage":
 
             # Target takes 1 damage
             new_damage = target.moveDamage(-1, args['self'])
             target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
+
+        else:
+            target.gc.tell_h("{} did nothing.", [target.user_id])
 
     else:
 
@@ -128,22 +157,35 @@ def anger(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
-    # If target is hunter or shadow, must give equipment or take 1 damage
-    if target.character.alleg in [0, 2]:
+    unknown = target.character.name == 'Unknown'
 
-        # Target is hunter or shadow, get decision
-        target.gc.tell_h(
-            "You are a {}.",
-            [constants.ALLEGIANCE_MAP[target.character.alleg]],
-            target.socket_id
-        )
-        if len(target.equipment):
-            data = {'options': [
-                "Give an equipment card", "Receive 1 damage"]}
+    # If target is hunter or shadow, must give equipment or take 1 damage
+    if target.character.alleg in [0, 2] or unknown:
+
+        if unknown:
+            target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+            if len(target.equipment):
+                data = {'options': [
+                    "Give an equipment card", "Receive 1 damage", "Do nothing"]}
+            else:
+                data = {'options': ["Receive 1 damage", "Do nothing"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
+
         else:
-            data = {'options': ["Receive 1 damage"]}
-        decision = target.gc.ask_h(
-            'yesno', data, target.user_id)['value']
+            # Target is hunter or shadow, get decision
+            target.gc.tell_h(
+                "You are a {}.",
+                [constants.ALLEGIANCE_MAP[target.character.alleg]],
+                target.socket_id
+            )
+            if len(target.equipment):
+                data = {'options': [
+                    "Give an equipment card", "Receive 1 damage"]}
+            else:
+                data = {'options': ["Receive 1 damage"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
 
         # Branch on decision
         if decision == "Give an equipment card":
@@ -154,12 +196,15 @@ def anger(args):
             # Transfer equipment from target to user
             target.giveEquipment(args['self'], eq)
 
-        else:
+        elif decision == "Receive 1 damage":
 
             # Target takes 1 damage
             new_damage = target.moveDamage(-1, args['self'])
             target.gc.tell_h("{} took {} damage!",
                              [target.user_id, "1"])
+
+        else:
+            target.gc.tell_h("{} did nothing.", [target.user_id])
 
     else:
 
@@ -184,8 +229,22 @@ def slap(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
+    unknown = target.character.name == "Unknown" and not target.modifiers['special_used']
+
+    if unknown:
+        target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+
+        data = {'options': ["Receive 1 damage", "Do nothing"]}
+        decision = target.gc.ask_h(
+            'yesno', data, target.user_id)['value']
+        if decision == "Receive 1 damage":
+            new_damage = target.moveDamage(-1, args['self'])
+            target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
+        else:
+            target.gc.tell_h("{} did nothing.", [target.user_id])
+
     # If hunter, take 1 damage
-    if target.character.alleg == 2:
+    elif target.character.alleg == 2:
 
         # Prompt target to receive 1 damage
         target.gc.tell_h(
@@ -223,8 +282,22 @@ def spell(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
+    unknown = target.character.name == "Unknown" and not target.modifiers['special_used']
+
+    if unknown:
+        target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+
+        data = {'options': ["Receive 1 damage", "Do nothing"]}
+        decision = target.gc.ask_h(
+            'yesno', data, target.user_id)['value']
+        if decision == "Receive 1 damage":
+            new_damage = target.moveDamage(-1, args['self'])
+            target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
+        else:
+            target.gc.tell_h("{} did nothing.", [target.user_id])
+
     # If shadow, take 1 damage
-    if target.character.alleg == 0:
+    elif target.character.alleg == 0:
 
         # Prompt target to receive 1 damage
         target.gc.tell_h(
@@ -265,8 +338,22 @@ def exorcism(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
+    unknown = target.character.name == "Unknown" and not target.modifiers['special_used']
+
+    if unknown:
+        target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+
+        data = {'options': ["Receive 2 damage", "Do nothing"]}
+        decision = target.gc.ask_h(
+            'yesno', data, target.user_id)['value']
+        if decision == "Receive 2 damage":
+            new_damage = target.moveDamage(-2, args['self'])
+            target.gc.tell_h("{} took {} damage!", [target.user_id, "2"])
+        else:
+            target.gc.tell_h("{} did nothing.", [target.user_id])
+
     # If shadow, take 2 damage
-    if target.character.alleg == 0:
+    elif target.character.alleg == 0:
         # Prompt target to receive 2 damage
         target.gc.tell_h(
             "You are a {}.",
@@ -306,8 +393,32 @@ def nurturance(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
+    unknown = target.character.name == "Unknown" and not target.modifiers['special_used']
+
+    if unknown:
+        target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+
+        if target.damage == 0:
+            data = {'options': ["Receive 1 damage", "Do nothing"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
+            if decision == "Receive 1 damage":
+                new_damage = target.moveDamage(-1, args['self'])
+                target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
+            else:
+                target.gc.tell_h("{} did nothing.", [target.user_id])
+        else:
+            data = {'options': ["Heal 1 damage", "Do nothing"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
+            if decision == "Heal 1 damage":
+                new_damage = target.moveDamage(1, args['self'])
+                target.gc.tell_h("{} healed {} damage!", [target.user_id, "1"])
+            else:
+                target.gc.tell_h("{} did nothing.", [target.user_id])
+
     # If neutral, heal 1 damage (unless at 0, then take 1 damage)
-    if target.character.alleg == 1:
+    elif target.character.alleg == 1:
         # Branch on hp value
         target.gc.tell_h(
             "You are a {}.",
@@ -323,7 +434,7 @@ def nurturance(args):
             # Give target 1 damage
             new_damage = target.moveDamage(-1, args['self'])
             target.gc.tell_h("{} took {} damage!",
-                             [target.user_id, "2"])
+                             [target.user_id, "1"])
 
         else:
 
@@ -359,8 +470,32 @@ def aid(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
+    unknown = target.character.name == "Unknown" and not target.modifiers['special_used']
+
+    if unknown:
+        target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+
+        if target.damage == 0:
+            data = {'options': ["Receive 1 damage", "Do nothing"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
+            if decision == "Receive 1 damage":
+                new_damage = target.moveDamage(-1, args['self'])
+                target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
+            else:
+                target.gc.tell_h("{} did nothing.", [target.user_id])
+        else:
+            data = {'options': ["Heal 1 damage", "Do nothing"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
+            if decision == "Heal 1 damage":
+                new_damage = target.moveDamage(1, args['self'])
+                target.gc.tell_h("{} healed {} damage!", [target.user_id, "1"])
+            else:
+                target.gc.tell_h("{} did nothing.", [target.user_id])
+
     # If hunter, heal 1 damage (unless at 0, then take 1 damage)
-    if target.character.alleg == 2:
+    elif target.character.alleg == 2:
         # Branch on hp value
         target.gc.tell_h(
             "You are a {}.",
@@ -411,6 +546,30 @@ def huddle(args):
     display_data = args['card'].dump()
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
+
+    unknown = target.character.name == "Unknown" and not target.modifiers['special_used']
+
+    if unknown:
+        target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+
+        if target.damage == 0:
+            data = {'options': ["Receive 1 damage", "Do nothing"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
+            if decision == "Receive 1 damage":
+                new_damage = target.moveDamage(-1, args['self'])
+                target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
+            else:
+                target.gc.tell_h("{} did nothing.", [target.user_id])
+        else:
+            data = {'options': ["Heal 1 damage", "Do nothing"]}
+            decision = target.gc.ask_h(
+                'yesno', data, target.user_id)['value']
+            if decision == "Heal 1 damage":
+                new_damage = target.moveDamage(1, args['self'])
+                target.gc.tell_h("{} healed {} damage!", [target.user_id, "1"])
+            else:
+                target.gc.tell_h("{} did nothing.", [target.user_id])
 
     # If shadow, heal 1 damage (unless at 0, then take 1 damage)
     if target.character.alleg == 0:
@@ -465,8 +624,22 @@ def lesson(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
+    unknown = target.character.name == "Unknown" and not target.modifiers['special_used']
+
+    if unknown:
+        target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+
+        data = {'options': ["Receive 2 damage", "Do nothing"]}
+        decision = target.gc.ask_h(
+            'yesno', data, target.user_id)['value']
+        if decision == "Receive 2 damage":
+            new_damage = target.moveDamage(-2, args['self'])
+            target.gc.tell_h("{} took {} damage!", [target.user_id, "2"])
+        else:
+            target.gc.tell_h("{} did nothing.", [target.user_id])
+
     # If target's hp is >= 12, they take 2 damage.
-    if target.character.max_damage >= 12:
+    elif target.character.max_damage >= 12:
 
         # Prompt target to receive 2 damage
         target.gc.tell_h("Your maximum hp ({}) is {} or more.", [
@@ -501,8 +674,22 @@ def bully(args):
     display_data['type'] = 'draw'
     args['self'].gc.show_h(display_data, target.socket_id)
 
+    unknown = target.character.name == "Unknown" and not target.modifiers['special_used']
+
+    if unknown:
+        target.gc.tell_h("You are the {}. You may lie.", [target.character.name], target.socket_id)
+
+        data = {'options': ["Receive 1 damage", "Do nothing"]}
+        decision = target.gc.ask_h(
+            'yesno', data, target.user_id)['value']
+        if decision == "Receive 1 damage":
+            new_damage = target.moveDamage(-1, args['self'])
+            target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
+        else:
+            target.gc.tell_h("{} did nothing.", [target.user_id])
+
     # If target's hp is <= 11, they take 1 damage.
-    if target.character.max_damage <= 11:
+    elif target.character.max_damage <= 11:
 
         # Prompt target to receive 1 damage
         target.gc.tell_h("Your maximum hp ({}) is {} or less.", [
