@@ -80,7 +80,7 @@ var GameBoard = new Phaser.Class ({
     preload: function () {
         // url where gfx resources are stored
         var gfx = "https://d2naeox1pchp13.cloudfront.net/";
-
+        // var gfx = "https://0.0.0.0/static/assets/";
 
         // loading screen
         var progressBar = this.add.graphics();
@@ -183,6 +183,24 @@ var GameBoard = new Phaser.Class ({
         this.load.svg('G', gfx + 'g.svg', {width: 36.657, height: 36.657});
 
         // possible later implementation: loop through dumped list of playable characters to load images?
+
+        
+        this.load.image('Agnes', '/static/assets/Agnes.png');
+        this.load.image('Bryan', '/static/assets/Bryan.png');
+        this.load.image('Charles', '/static/assets/Charles.png');
+        this.load.image('Daniel', '/static/assets/Daniel.png');
+        this.load.image('David', '/static/assets/David.png');
+        this.load.image('Emi', '/static/assets/Emi.png');
+        this.load.image('Gregor', '/static/assets/Gregor.png');
+        this.load.image('Unknown', '/static/assets/Unknown.png');
+        this.load.image('Wight', '/static/assets/Wight.png');
+        
+        //this.load.svg('Allie', '/static/assets/Allie.svg', {width: 123, height: 123});
+
+        //display popups
+        this.load.svg('gameOver', '/static/assets/gameOver.svg', {width: 642, height: 590});
+        this.load.svg('gameSummary', '/static/assets/gameSummary.svg', {width: 608.184, height: 590});
+
         this.load.image('Allie', gfx + 'Allie.png');
         this.load.image('George', gfx + 'George.png');
         this.load.image('Fu-ka', gfx + 'Fu-ka.png');
@@ -199,6 +217,7 @@ var GameBoard = new Phaser.Class ({
         //display pop ups
         this.load.svg('gameOver', gfx + 'gameOver.svg', {width: 642, height: 590});
         this.load.svg('gameSummary', gfx + 'gameSummary.svg', {width: 608.184, height: 590});
+
         this.load.svg('whitecard', gfx + 'whitecard.svg', {width: 150, height: 200});
         this.load.svg('blackcard', gfx + 'blackcard.svg', {width: 150, height: 200});
         this.load.svg('greencard', gfx + 'greencard.svg', {width: 150, height: 200});

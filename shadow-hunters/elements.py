@@ -209,8 +209,7 @@ class ElementFactory:
                 color=1,
                 holder=None,
                 is_equip=True,
-                use=lambda is_attack, successful, amt: amt +
-                1 if (is_attack and successful) else amt
+                use=lambda is_attack, successful, amt: amt + 1 if (is_attack and successful) else amt
             ),
             card.Card(
                 title="Chainsaw",
@@ -219,8 +218,7 @@ class ElementFactory:
                 color=1,
                 holder=None,
                 is_equip=True,
-                use=lambda is_attack, successful, amt: amt +
-                1 if (is_attack and successful) else amt
+                use=lambda is_attack, successful, amt: amt + 1 if (is_attack and successful) else amt
             ),
             card.Card(
                 title="Rusted Broad Axe",
@@ -229,8 +227,7 @@ class ElementFactory:
                 color=1,
                 holder=None,
                 is_equip=True,
-                use=lambda is_attack, successful, amt: amt +
-                1 if (is_attack and successful) else amt
+                use=lambda is_attack, successful, amt: amt + 1 if (is_attack and successful) else amt
             ),
             card.Card(
                 title="Moody Goblin",
@@ -626,7 +623,125 @@ class ElementFactory:
                               "you can choose a player and permanently"
                               " void their special ability."),
                 resource_id="ellen"
-            )
+            ),
+
+            # previously unimplemented official expansion characters start here
+            # character.Character(
+            #     name="Agnes",
+            #     alleg=1,  # Neutral
+            #     max_damage=8,
+            #     win_cond=win_conditions.agnes,
+            #     win_cond_desc="The player to your immediate right wins.",
+            #     special=specials.agnes,
+            #     special_desc=("Can only be used at the start of your turn. "
+            #                   "Changes your win condition to \'The player to "
+            #                   "your immediate left wins.\'"),
+            #     resource_id="agnes"
+            # ),
+            character.Character(
+                name="Bryan",
+                alleg=1,  # Neutral
+                max_damage=10,
+                win_cond=win_conditions.bryan,
+                win_cond_desc=("Your attack kills a character whose HP "
+                               "is 13 or more OR you are on the Erstwhile "
+                               "Altar when the game is over."),
+                special=specials.bryan,
+                special_desc=("If your attack kills a character whose HP "
+                              "is 12 or less, you must reveal your identity."),
+                resource_id="bryan"
+            ),
+            # character.Character(
+            #     name="Charles",
+            #     alleg=1,  # Neutral
+            #     max_damage=11,
+            #     win_cond=win_conditions.charles,
+            #     win_cond_desc=("At the time you kill another character, "
+            #                    "the total number of dead characters "
+            #                    "is 3 or more."),
+            #     special=specials.charles,
+            #     special_desc=("After you attack, you may give yourself 2 "
+            #                   "points of damage to attack the same "
+            #                   "character again."),
+            #     resource_id="charles"
+            # ),
+            character.Character(
+                name="Daniel",
+                alleg=1,  # Neutral
+                max_damage=13,
+                win_cond=win_conditions.daniel,
+                win_cond_desc=("You are the first character to die OR "
+                               "all the Shadow characters are dead "
+                               "and you are not."),
+                special=specials.daniel,
+                special_desc=("As soon as another character dies, "
+                              "you must reveal your identity."),
+                resource_id="daniel"
+            ),
+            # character.Character(
+            #     name="David",
+            #     alleg=1,  # Neutral
+            #     max_damage=13,
+            #     win_cond=win_conditions.david,
+            #     win_cond_desc=("You have 3 or more of the following: "
+            #                    "\'Talisman\', \'Spear of Longinus\', "
+            #                    "\'Holy Robe\', \'Silver Rosary\'."),
+            #     special=specials.david,
+            #     special_desc=("You may take one Equipment card "
+            #                   "of your choice from any discard "
+            #                   "pile. Only once per game."),
+            #     resource_id="david"
+            # ),
+            character.Character(
+                name="Emi",
+                alleg=2,  # Hunter
+                max_damage=10,
+                win_cond=win_conditions.hunter,
+                win_cond_desc="All the Shadow characters are dead. ",
+                special=specials.emi,
+                special_desc=("When you move, you can roll dice "
+                              "as normal or move to an adjacent "
+                              "Area Card."),
+                resource_id="emi"
+            ),
+            character.Character(
+                name="Gregor",
+                alleg=2,  # Hunter
+                max_damage=10,
+                win_cond=win_conditions.hunter,
+                win_cond_desc="All the Shadow characters are dead. ",
+                special=specials.emi,
+                special_desc=("Can only be used when your turn "
+                              "is over. You cannot receive any "
+                              "damage until the start of your "
+                              "next turn."),
+                resource_id="gregor"
+            ),
+            character.Character(
+                name="Wight",
+                alleg=0,  # Shadow
+                max_damage=14,
+                win_cond=win_conditions.shadow,
+                win_cond_desc="All of the Hunters (or 3 Neutrals) are dead.",
+                special=specials.wight,
+                special_desc=("When your turn is over, you may "
+                              "take an additional number of turns "
+                              "equal to the amount of dead characters.  "
+                              "Once per game."),
+                resource_id="wight"
+            ),
+            character.Character(
+                name="Unknown",
+                alleg=0,  # Shadow
+                max_damage=11,
+                win_cond=win_conditions.shadow,
+                win_cond_desc="All of the Hunters (or 3 Neutrals) are dead.",
+                special=specials.unknown,
+                special_desc=("You may lie when given a Hermit card. "
+                              "You don't have to reveal your identity "
+                              "to do this."),
+                resource_id="unknown"
+            ),
         ]
 
         # Initialize areas

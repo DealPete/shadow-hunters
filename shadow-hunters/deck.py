@@ -39,5 +39,16 @@ class Deck:
             self.shuffle()
             return self.drawCard()
 
+    def listEquipmentInDiscard(self):
+        equipment = self.discard
+        for c in equipment:
+            if not c.is_equipment:
+                equipment.remove(c)
+        return equipment
+
     def addToDiscard(self, card):
         self.discard.append(card)
+
+    def takeFromDiscard(self, card):
+        self.discard.remove(card)
+        return card

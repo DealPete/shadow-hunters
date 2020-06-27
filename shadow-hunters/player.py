@@ -97,14 +97,36 @@ class Player:
 
     def _takeTurn(self):
 
-        # Roll dice
-        self.gc.tell_h("{} is rolling for movement...", [self.user_id])
-        roll_result = self.rollDice('area')
-        while self.gc.getAreaFromRoll(roll_result) == self.location:
-            if self.location is None:
-                break
-            self.gc.tell_h("{} has to reroll...", [self.user_id])
+        roll_result = None
+
+        # Emi can skip roll and just move to adjacent location within zone
+        if all([self.character.name == 'Emi', self.state == 1,
+                not self.modifiers['special_used'], self.location is not None]):
+
+            for a in self.gc.getAreas():
+                loc = helpers.get_area_by_name(self.gc, a)
+                if (loc.zone is self.location.zone) and a != self.location.name:
+                    next_door = loc
+                    break
+
+            # Pick the preferred option
+            data = {'options': ["Roll to move",
+                                "Go to {}".format(next_door.name)]}
+            answer = self.gc.ask_h('yesno', data, self.user_id)['value']
+            if answer != "Roll to move":
+                self.gc.tell_h("{} ({}) used their special ability to move next door.",
+                               [self.user_id, self.character.name])
+                roll_result = next_door.domain[0]
+
+        if roll_result is None:
+            # Roll dice
+            self.gc.tell_h("{} is rolling for movement...", [self.user_id])
             roll_result = self.rollDice('area')
+            while self.gc.getAreaFromRoll(roll_result) == self.location:
+                if self.location is None:
+                    break
+                self.gc.tell_h("{} has to reroll...", [self.user_id])
+                roll_result = self.rollDice('area')
 
         if self.hasEquipment("Mystic Compass"):
 
@@ -114,13 +136,13 @@ class Player:
             second_roll = self.rollDice('area')
             while self.gc.getAreaFromRoll(second_roll) == self.location:
                 if self.location is None:
-                    break   
+                    break
                 self.gc.tell_h("{} has to reroll...", [self.user_id])
                 second_roll = self.rollDice('area')
 
             # Pick the preferred roll
-            data = {'options': ["Use {}".format(
-                roll_result), "Use {}".format(second_roll)]}
+            data = {'options': ["Use {}".format(roll_result),
+                                "Use {}".format(second_roll)]}
             answer = self.gc.ask_h('yesno', data, self.user_id)['value']
             roll_result = int(answer[4:])
 
@@ -130,7 +152,7 @@ class Player:
             # Select an area
             self.gc.tell_h("{} is selecting an area...", [self.user_id])
             eligibleAreas = self.gc.getAreas()
-            # can't stay at current location 
+            # can't stay at current location
             if self.location is not None:
                 eligibleAreas.remove(self.location.name)
             data = {'options': eligibleAreas}
@@ -172,22 +194,20 @@ class Player:
         self.attackSequence(dice_type=self.modifiers['attack_dice_type'])
 
     def attackSequence(self, dice_type="attack"):
-
-        
         # Get attackable players
         live_players = self.gc.getLivePlayers(lambda p: p.location)
         targets = [p for p in live_players if (
             p.location.zone == self.location.zone and p != self)]
         if self.hasEquipment("Handgun"):
-            self.gc.tell_h("{}'s {} reverses their attack range.", [
-                            self.user_id, "Handgun"])
-            targets = [p for p in live_players if (
-                p.location.zone != self.location.zone and p != self)]
-        
+            self.gc.tell_h("{}'s {} reverses their attack range.",
+                           [self.user_id, "Handgun"])
+            targets = [p for p in live_players if
+                       (p.location.zone != self.location.zone and p != self)]
+
         # if there are no legal targets, don't prompt for an attack
         if not len(targets):
             self.gc.tell_h("{} has no one to attack.", [self.user_id])
-                
+
         else:
             # Give player option to attack or decline
             self.gc.tell_h("{} is deciding to attack...", [self.user_id])
@@ -200,11 +220,12 @@ class Player:
 
             if answer != "Decline":
                 opts = [t.user_id for t in targets]
-                # If player has Masamune, can't decline unless there are no options
+                # If player has Masamune, can't decline unless no options
                 if not self.hasEquipment("Cursed Sword Masamune") or not len(opts):
                     opts.append("Decline")
 
-                answer = self.gc.ask_h('select', {'options': opts}, self.user_id)
+                answer = self.gc.ask_h('select', {'options': opts},
+                                       self.user_id)
                 answer = answer['value']
 
                 if answer != 'Decline':
@@ -265,9 +286,9 @@ class Player:
                                     t.giveEquipment(self, desired_eq)
                                     self.gc.tell_h(
                                         ("{} stole {}'s {} instead "
-                                        "of dealing {} damage!"),
+                                            "of dealing {} damage!"),
                                         [self.user_id, t.user_id, desired_eq.title,
-                                        potential_damage]
+                                            potential_damage]
                                     )
                                 else:
                                     # Actually deal damage
@@ -508,7 +529,11 @@ class Player:
     def checkDeath(self, attacker):
         if self.damage >= self.character.max_damage:
             self.gc.update_h()
+            self.gc.lastKiller = attacker
+            self.gc.lastKilled = self
             self.die(attacker)
+            self.character.special(self.gc, self, turn_pos='death')
+            attacker.character.special(attacker.gc, attacker, turn_pos='death')
         self.gc.update_h()
 
     def die(self, attacker):
@@ -578,6 +603,9 @@ class Player:
 
         # Set self to null location
         self.location = None
+
+        # check wincons
+        # self.gc.checkWinConditions(tell=False)
 
     def move(self, location):
         self.location = location
