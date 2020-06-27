@@ -198,8 +198,6 @@ var GameBoard = new Phaser.Class ({
         //this.load.svg('Allie', '/static/assets/Allie.svg', {width: 123, height: 123});
 
         //display popups
-        this.load.svg('gameOver', '/static/assets/gameOver.svg', {width: 642, height: 590});
-        this.load.svg('gameSummary', '/static/assets/gameSummary.svg', {width: 608.184, height: 590});
 
         this.load.image('Allie', gfx + 'Allie.png');
         this.load.image('George', gfx + 'George.png');
