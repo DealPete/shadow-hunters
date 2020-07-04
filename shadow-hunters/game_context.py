@@ -18,6 +18,7 @@ class GameContext:
         # Instantiate gameplay objects
         self.players = players
         self.turn_order = copy.copy(players)
+        # random.shuffle(self.turn_order)
         self.round_count = 0
 
         # Instantiate characters
@@ -38,8 +39,8 @@ class GameContext:
         # Instantiate status
         self.game_over = False
 
-        self.lastKiller = None
-        self.lastKilled = None
+        self.last_killer = None
+        self.last_killed = None
 
         # Instantiate message handlers
         self.ask_h = ask_h
@@ -79,9 +80,9 @@ class GameContext:
 
         # Randomly assign characters and point game context
         character_q = copy.deepcopy(self.characters)
-        random.shuffle(character_q)
         queue = []
         while character_q:
+            random.shuffle(character_q)
             ch = character_q.pop()
             already_in = len([c for c in queue if c.alleg == ch.alleg])
             if (already_in < counts_dict[len(self.players)][ch.alleg]):
@@ -89,9 +90,21 @@ class GameContext:
 
         assert(len(queue) == len(self.players))
 
+        # random.shuffle(queue)
+
+        # debugging - first player assignment
+
         for player in self.players:
+            # if not player.ai:
+            #     test = [c for c in queue if c.name == 'Agnes']
+            #     player.setCharacter(test[0])
+            #     queue.remove(test[0])
+            # else:
+            random.shuffle(queue)
             player.setCharacter(queue.pop())
             player.gc = self
+
+        # testing
 
     def getLivePlayers(self, filter_fn=(lambda x: True)):
         res = filter(filter_fn, [p for p in self.players if p.state > 0])
@@ -132,14 +145,14 @@ class GameContext:
             idx_left = idx
             idx_right = idx
 
-            while(self.turn_order[idx_left].state > 0):  # need live player
+            while(idx_left == idx or self.turn_order[idx_left].state == 0):  # need live player
                 if idx_left == len(self.turn_order) - 1:
                     idx_left = 0
                 else:
                     idx_left += 1
             leftNeighbour = self.turn_order[idx_left]
 
-            while(self.turn_order[idx_right].state > 0):  # need live player
+            while(idx_right == idx or self.turn_order[idx_right].state == 0):  # need live player
                 if idx_right == 0:
                     idx_right = len(self.turn_order) - 1
                 else:

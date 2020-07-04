@@ -40,6 +40,10 @@ class Player:
         display_data = {'type': 'reveal', 'player': self.dump()}
         self.gc.show_h(display_data)
 
+        # for passive specials, activate
+        if self.character.name in ['Valkyrie', 'Werewolf', 'Vampire', 'Charles'] and not self.ai:
+            self.character.special(self.gc, self, 'reveal')
+
     def takeTurn(self):
 
         # Announce player
@@ -83,6 +87,10 @@ class Player:
         # takeTurn
         self._takeTurn()
 
+        # After turn check for special ability
+        if self.special_active:
+            self.character.special(self.gc, self, turn_pos='end')
+
         # Someone could have died here, so check win conditions
         if self.gc.checkWinConditions(tell=False):
             return  # let the win conditions check in GameContext.play() handle
@@ -90,10 +98,6 @@ class Player:
         # The current player could have died -- if so end their turn
         if self.state == 0:
             return
-
-        # After turn check for special ability
-        if self.special_active:
-            self.character.special(self.gc, self, turn_pos='end')
 
     def _takeTurn(self):
 
@@ -300,8 +304,76 @@ class Player:
                             # Actually deal damage
                             damage_dealt = self.attack(t, roll_result)
 
-                else:
-                    self.gc.tell_h("{} declined to attack.", [self.user_id])
+                # Check for second attack
+                if self.modifiers['prompt_for_second_attack']:
+                    # Ask if player wants to do a second attack
+                    self.gc.tell_h(
+                        "{}, {}, is deciding whether to attack again!",
+                        [self.user_id, "Charles"])
+                    answer = self.gc.ask_h(
+                        'confirm', {'options': ["Take 2 damage for a second attack", "Decline"]},
+                        self.user_id)['value']
+
+                    if answer != "Decline":
+                        self.gc.tell_h("{} is attacking {} again!", [self.user_id, target_name])
+                        self.moveDamage(-2, self)
+
+                        # same target[s]
+                        # Roll with the 4-sided die if the player has masamune
+                        roll_result = 0
+                        if self.hasEquipment("Cursed Sword Masamune"):
+                            self.gc.tell_h(
+                                "{} rolls with the 4-sided die using the {}!",
+                                [self.user_id, "Cursed Sword Masamune"]
+                            )
+                            roll_result = self.rollDice('4')
+                        else:
+                            roll_result = self.rollDice(dice_type)
+
+                        for t in targets:
+                            # Dry run the attack if we're Bob
+                            if self.modifiers['steal_for_damage']:
+                                potential_damage = self.attack(
+                                    t,
+                                    roll_result,
+                                    dryrun=True
+                                )
+                                if potential_damage >= 2 and len(t.equipment):
+                                    # Ask whether to steal equipment or deal damage
+                                    data = {
+                                        'options': [
+                                            "Steal equipment",
+                                            "Deal {} damage".format(potential_damage)
+                                        ]
+                                    }
+                                    choose_steal = self.gc.ask_h(
+                                        'yesno', data, self.user_id
+                                    )['value'] == "Steal equipment"
+
+                                    if choose_steal:
+                                        desired_eq = self.chooseEquipment(t)
+                                        t.giveEquipment(self, desired_eq)
+                                        self.gc.tell_h(
+                                            ("{} stole {}'s {} instead "
+                                                "of dealing {} damage!"),
+                                            [self.user_id, t.user_id, desired_eq.title,
+                                                potential_damage]
+                                        )
+                                    else:
+                                        # Actually deal damage
+                                        damage_dealt = self.attack(t, roll_result)
+                                else:
+                                    # Actually deal damage
+                                    damage_dealt = self.attack(t, roll_result)
+                        else:
+                            # Actually deal damage
+                            damage_dealt = self.attack(t, roll_result)
+                    else:
+                        self.gc.tell_h(
+                            "{} declined a second attack.",
+                            [self.user_id]
+                        )
+
             else:
                 self.gc.tell_h("{} declined to attack.", [self.user_id])
 
@@ -529,11 +601,13 @@ class Player:
     def checkDeath(self, attacker):
         if self.damage >= self.character.max_damage:
             self.gc.update_h()
-            self.gc.lastKiller = attacker
-            self.gc.lastKilled = self
+            self.gc.last_killer = attacker
+            self.gc.last_killed = self
+            # attacker.gc.last_killer = attacker
+            # attacker.gc.last_killed = self
             self.die(attacker)
-            self.character.special(self.gc, self, turn_pos='death')
-            attacker.character.special(attacker.gc, attacker, turn_pos='death')
+            for p in self.gc.players:
+                p.character.special(p.gc, p, turn_pos='death')
         self.gc.update_h()
 
     def die(self, attacker):
@@ -605,7 +679,7 @@ class Player:
         self.location = None
 
         # check wincons
-        # self.gc.checkWinConditions(tell=False)
+        self.gc.checkWinConditions(tell=False)
 
     def move(self, location):
         self.location = location

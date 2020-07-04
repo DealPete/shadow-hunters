@@ -49,9 +49,11 @@ def agnes(gc, player):
     # the player to her left.
     neighbours = gc.getAdjacentPlayers(player)
     if neighbours is not None:
-        rightWinner = neighbours[1].win_cond and not player.modifiers['agnes_picked_left']
-        leftWinner = neighbours[0].win_cond and player.modifiers['agnes_picked_left']
-        return rightWinner or leftWinner
+        right_winner = neighbours[1].character.win_cond(neighbours[1].gc, neighbours[1])
+        right_winner = right_winner and not player.modifiers['agnes_picked_left']
+        left_winner = neighbours[0].character.win_cond(neighbours[0].gc, neighbours[0])
+        left_winner = left_winner and player.modifiers['agnes_picked_left']
+        return right_winner or left_winner
     else:
         return False
 
@@ -61,7 +63,7 @@ def bryan(gc, player):
     # Bryan wins if he kills a character with 13 or more HP.
     # or if he is at the Erstwhile Altar when the game ends.
 
-    kill_big_guy = gc.lastKiller is player and gc.lastKilled.max_damage >= 13
+    kill_big_guy = gc.last_killer is player and gc.last_killed.character.max_damage >= 13
     altar_at_end = player in gc.getPlayersAt("Erstwhile Altar") and gc.game_over
 
     return kill_big_guy or altar_at_end
@@ -72,7 +74,7 @@ def charles(gc, player):
     # Charles wins if he kills a character and three or more
     # characters are already dead.
     three_dead = len(gc.getDeadPlayers()) >= 3
-    just_killed = gc.lastKiller is player
+    just_killed = gc.last_killer is player
     return three_dead and just_killed
 
 def daniel(gc, player):
@@ -80,8 +82,7 @@ def daniel(gc, player):
     # Daniel wins if he is first to die or all the
     # Shadows are dead.
 
-    first_to_die = (player in gc.getDeadPlayers()) and (
-        len(gc.getDeadPlayers()) == 1)
+    first_to_die = (player in gc.getDeadPlayers()) and (len(gc.getDeadPlayers()) == 1)
     no_living_shadows = (
         len([p for p in gc.getLivePlayers() if p.character.alleg == 0]) == 0)
     return first_to_die or no_living_shadows

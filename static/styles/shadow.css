@@ -171,6 +171,20 @@ select {
   font-size: 10px;
   font-family: Palatino, "Times New Roman", Times;
 }
+.button3 {
+    background-color: #3a3f5f;
+    border-radius: 15px;
+    height: 50px;
+    width: 100px;
+    white-space:normal;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    font-family: Palatino, "Times New Roman", Times;
+}
 
 #popup {
     position: absolute;

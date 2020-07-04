@@ -142,25 +142,14 @@ def ellen(gc, player, turn_pos):
 
 
 def valkyrie(gc, player, turn_pos):
-    if (not player.modifiers['special_active']) and (
-            not player.modifiers['special_used']):
-        # Tell
-        gc.tell_h("{} ({}) used their special ability: {}", [
-                  player.user_id, player.character.name,
-                  player.character.special_desc])
+    if not player.modifiers['special_used']:
         player.modifiers['attack_dice_type'] = "4"
         player.modifiers['special_active'] = True
 
 
 def vampire(gc, player, turn_pos):
-    if (not player.modifiers['special_active']) and (
-            not player.modifiers['special_used']):
-        # Tell
-        gc.tell_h("{} ({}) used their special ability: {}", [
-                  player.user_id, player.character.name,
-                  player.character.special_desc])
-        player.modifiers['damage_dealt_fn'] = lambda player: player.moveDamage(
-            2, player)
+    if not player.modifiers['special_used']:
+        player.modifiers['damage_dealt_fn'] = lambda player: player.moveDamage(2, player)
         player.modifiers['special_active'] = True
 
 
@@ -214,87 +203,66 @@ def agnes(gc, player, turn_pos):
 def bryan(gc, player, turn_pos):
     # passive ability, must reveal if he kills a small character
     if turn_pos == 'death' and (not player.modifiers['special_used']):
-        if gc.lastKiller is player and gc.lastKilled.max_damage <= 13:
+        if gc.last_killer is player and gc.last_killed.character.max_damage < 13:
 
             gc.tell_h("{} ({}) triggered their special ability: {}", [
                       player.user_id, player.character.name,
                       player.character.special_desc])
-            player.modifiers['special_used'] = True
-            player.state = 1
 
-            # Reveal character to frontend
+            player.reveal()
             gc.update_h()
+            player.modifiers['special_used'] = True
 
-            # Broadcast reveal
-            display_data = {'type': 'reveal', 'player': player.dump()}
-            gc.show_h(display_data)
 
 def charles(gc, player, turn_pos):
-    # AFTER AN ATTACK
-    if turn_pos == 'now' and not player.modifiers['special_used']:
-        gc.tell_h("{} ({}) used their special ability: {}", [
-                  player.user_id, player.character.name,
-                  player.character.special_desc])
-        player.moveDamage(-2, player)
+    # not once per game, trigger availability
+    if not player.modifiers['special_used']:
+        player.modifiers['prompt_for_second_attack'] = True
         player.modifiers['special_used'] = True
-        # fix to use same target
-        player.attackSequence(dice_type=player.modifiers['attack_dice_type'])
-        # once per turn
-        player.modifiers['special_used'] = False
 
 
 def daniel(gc, player, turn_pos):
-    # AFTER PLAYER KILL
-    if turn_pos == 'death' and (not player.modifiers['special_used']):
-        if len(gc.getDeadPlayers()) > 0:
+    if turn_pos == "death" and not player.modifiers['special_used']:
+        if len(gc.getDeadPlayers()) > 0 and not (player in gc.getDeadPlayers()):
             gc.tell_h("{} ({}) triggered their special ability: {}", [
                       player.user_id, player.character.name,
                       player.character.special_desc])
-            player.modifiers['special_used'] = True
-            player.state = 1
-
-            # Reveal character to frontend
+            player.reveal()
             gc.update_h()
-
-            # Broadcast reveal
-            display_data = {'type': 'reveal', 'player': player.dump()}
-            gc.show_h(display_data)
+            player.modifiers['special_used'] = True
 
 
 def david(gc, player, turn_pos):
     # once per game grab an item from discard
     if turn_pos == 'end' and not player.modifiers['special_used']:
-        discard_equipment = gc.white_cards.listEquipmentInDiscard()   \
-            + gc.black_cards.listEquipmentInDiscard()
+        discard_equipment = gc.white_cards.listEquipmentInDiscard()
+        discard_equipment += gc.black_cards.listEquipmentInDiscard()
+        if len(discard_equipment) > 0:
+            player.gc.tell_h("You may use {}'s special ability to grab an item.",
+                             [player.character.name], player.socket_id)
 
-        player.gc.ask_h(
-            'confirm', {'options': ["Use special ability to grab an item"]},
-            player.user_id)
-        data = {'options': [
-            c.title for c in discard_equipment]}
-        selection = player.gc.ask_h(
-            'select', data, player.user_id)['value']
-        for c in discard_equipment:
-            if c.title == selection:
-                target = c
-                break
+            discard_equipment.append('Decline')
+            data = {'options': discard_equipment}
+            selection = player.gc.ask_h('select', data, player.user_id)['value']
+            if selection != 'Decline':
+                target = gc.white_cards.takeFromDiscard(selection)
+                if target is None:
+                    target = gc.black_cards.takeFromDiscard(selection)
 
-        if target.color == "white":
-            player.equipment.append(gc.white_cards.takeFromDiscard(target))
+                player.equipment.append(target)
+
+                gc.tell_h("{} ({}) used their special ability: {}", [
+                          player.user_id, player.character.name,
+                          player.character.special_desc])
+
+                gc.tell_h("{} added {} to their arsenal!",
+                          [player.user_id, target.title])
+
+                gc.update_h()
+
+                player.modifiers['special_used'] = True
         else:
-            player.equipment.append(gc.black_cards.takeFromDiscard(target))
-
-        gc.tell_h("{} ({}) used their special ability: {}", [
-                  player.user_id, player.character.name,
-                  player.character.special_desc])
-
-        gc.tell_h("{} added {} to their arsenal!",
-                  [player.user_id, target.title])
-
-        gc.update_h()
-
-        player.modifiers['special_used'] = True
-
+            player.gc.tell_h("No equipment in discard.", [], player.socket_id)
 
 def emi(gc, player, turn_pos):
     # passive, can move to adjacent space
@@ -308,6 +276,7 @@ def gregor(gc, player, turn_pos):
         gc.tell_h("{} ({}) used their special ability: {}", [
                   player.user_id, player.character.name,
                   player.character.special_desc])
+        player.modifiers['special_active'] = True
         player.modifiers['special_used'] = True
 
 def wight(gc, player, turn_pos):

@@ -626,18 +626,18 @@ class ElementFactory:
             ),
 
             # previously unimplemented official expansion characters start here
-            # character.Character(
-            #     name="Agnes",
-            #     alleg=1,  # Neutral
-            #     max_damage=8,
-            #     win_cond=win_conditions.agnes,
-            #     win_cond_desc="The player to your immediate right wins.",
-            #     special=specials.agnes,
-            #     special_desc=("Can only be used at the start of your turn. "
-            #                   "Changes your win condition to \'The player to "
-            #                   "your immediate left wins.\'"),
-            #     resource_id="agnes"
-            # ),
+            character.Character(
+                name="Agnes",
+                alleg=1,  # Neutral
+                max_damage=8,
+                win_cond=win_conditions.agnes,
+                win_cond_desc="The player to your immediate right wins.",
+                special=specials.agnes,
+                special_desc=("Can only be used at the start of your turn. "
+                              "Changes your win condition to \'The player to "
+                              "your immediate left wins.\'"),
+                resource_id="agnes"
+            ),
             character.Character(
                 name="Bryan",
                 alleg=1,  # Neutral
@@ -651,20 +651,20 @@ class ElementFactory:
                               "is 12 or less, you must reveal your identity."),
                 resource_id="bryan"
             ),
-            # character.Character(
-            #     name="Charles",
-            #     alleg=1,  # Neutral
-            #     max_damage=11,
-            #     win_cond=win_conditions.charles,
-            #     win_cond_desc=("At the time you kill another character, "
-            #                    "the total number of dead characters "
-            #                    "is 3 or more."),
-            #     special=specials.charles,
-            #     special_desc=("After you attack, you may give yourself 2 "
-            #                   "points of damage to attack the same "
-            #                   "character again."),
-            #     resource_id="charles"
-            # ),
+            character.Character(
+                name="Charles",
+                alleg=1,  # Neutral
+                max_damage=11,
+                win_cond=win_conditions.charles,
+                win_cond_desc=("At the time you kill another character, "
+                               "the total number of dead characters "
+                               "is 3 or more."),
+                special=specials.charles,
+                special_desc=("After you attack, you may give yourself 2 "
+                              "points of damage to attack the same "
+                              "character again."),
+                resource_id="charles"
+            ),
             character.Character(
                 name="Daniel",
                 alleg=1,  # Neutral
@@ -678,20 +678,20 @@ class ElementFactory:
                               "you must reveal your identity."),
                 resource_id="daniel"
             ),
-            # character.Character(
-            #     name="David",
-            #     alleg=1,  # Neutral
-            #     max_damage=13,
-            #     win_cond=win_conditions.david,
-            #     win_cond_desc=("You have 3 or more of the following: "
-            #                    "\'Talisman\', \'Spear of Longinus\', "
-            #                    "\'Holy Robe\', \'Silver Rosary\'."),
-            #     special=specials.david,
-            #     special_desc=("You may take one Equipment card "
-            #                   "of your choice from any discard "
-            #                   "pile. Only once per game."),
-            #     resource_id="david"
-            # ),
+            character.Character(
+                name="David",
+                alleg=1,  # Neutral
+                max_damage=13,
+                win_cond=win_conditions.david,
+                win_cond_desc=("You have 3 or more of the following: "
+                               "\'Talisman\', \'Spear of Longinus\', "
+                               "\'Holy Robe\', \'Silver Rosary\'."),
+                special=specials.david,
+                special_desc=("You may take one Equipment card "
+                              "of your choice from any discard "
+                              "pile. Only once per game."),
+                resource_id="david"
+            ),
             character.Character(
                 name="Emi",
                 alleg=2,  # Hunter
@@ -710,7 +710,7 @@ class ElementFactory:
                 max_damage=10,
                 win_cond=win_conditions.hunter,
                 win_cond_desc="All the Shadow characters are dead. ",
-                special=specials.emi,
+                special=specials.gregor,
                 special_desc=("Can only be used when your turn "
                               "is over. You cannot receive any "
                               "damage until the start of your "
