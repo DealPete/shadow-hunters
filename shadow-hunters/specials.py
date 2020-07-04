@@ -216,7 +216,7 @@ def bryan(gc, player, turn_pos):
 
 def charles(gc, player, turn_pos):
     # not once per game, trigger availability
-    if not player.modifiers['special_used']:
+    if not player.modifiers['special_used'] and player.state == 1:
         player.modifiers['prompt_for_second_attack'] = True
         player.modifiers['special_used'] = True
 
