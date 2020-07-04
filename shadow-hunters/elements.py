@@ -497,121 +497,121 @@ class ElementFactory:
                               " and inflict the amount of damage rolled."),
                 resource_id="valkyrie"
             ),
-            # character.Character(
-            #     name="Vampire",
-            #     alleg=0,  # Shadow
-            #     max_damage=13,
-            #     win_cond=win_conditions.shadow,
-            #     win_cond_desc="All of the Hunters (or 3 Neutrals) are dead.",
-            #     special=specials.vampire,
-            #     special_desc=("If you attack a player and inflict damage, "
-            #                   "you heal 2 points of your own damage."),
-            #     resource_id="vampire"
-            # ),
-            # character.Character(
-            #     name="Werewolf",
-            #     alleg=0,  # Shadow
-            #     max_damage=14,
-            #     win_cond=win_conditions.shadow,
-            #     win_cond_desc="All of the Hunters (or 3 Neutrals) are dead.",
-            #     special=specials.werewolf,
-            #     special_desc=("After you are attacked, "
-            #                   "you can counterattack immediately."),
-            #     resource_id="werewolf"
-            # ),
-            # character.Character(
-            #     name="Ultra Soul",
-            #     alleg=0,  # Shadow
-            #     max_damage=11,
-            #     win_cond=win_conditions.shadow,
-            #     win_cond_desc="All of the Hunters (or 3 Neutrals) are dead.",
-            #     special=specials.ultra_soul,
-            #     special_desc=("When your turn starts, you can give 3 damage"
-            #                   " to one player who is at"
-            #                   " the Underworld Gate."),
-            #     resource_id="ultra-soul"
-            # ),
-            # character.Character(
-            #     name="Allie",
-            #     alleg=1,  # Neutral
-            #     max_damage=8,
-            #     win_cond=win_conditions.allie,
-            #     win_cond_desc="You're not dead when the game is over.",
-            #     special=specials.allie,
-            #     special_desc="Once per game, you may fully heal your damage.",
-            #     resource_id="allie"
-            # ),
-            # character.Character(
-            #     name="Bob",
-            #     alleg=1,  # Neutral
-            #     max_damage=10,
-            #     win_cond=win_conditions.bob,
-            #     win_cond_desc="You have 5 or more equipment cards.",
-            #     special=specials.bob,
-            #     special_desc=("If your attack inflicts 2 or more damage, "
-            #                   "you may steal an Equipment card from your"
-            #                   " target instead of giving damage."),
-            #     resource_id="bob1",
-            #     modifiers={'min_players': 4, 'max_players': 6}
-            # ),
-            # character.Character(
-            #     name="Bob",
-            #     alleg=1,  # Neutral
-            #     max_damage=10,
-            #     win_cond=win_conditions.bob,
-            #     win_cond_desc="You have 5 or more equipment cards.",
-            #     special=specials.bob,
-            #     special_desc=("If you kill another player, "
-            #                   "you may take all of their Equipment cards."),
-            #     resource_id="bob2",
-            #     modifiers={'min_players': 7, 'max_players': 8}
-            # ),
-            # character.Character(
-            #     name="Catherine",
-            #     alleg=1,  # Neutral
-            #     max_damage=11,
-            #     win_cond=win_conditions.catherine,
-            #     win_cond_desc=("You are either the first to die or one of the"
-            #                    " last two players alive."),
-            #     special=specials.catherine,
-            #     special_desc="When your turn starts, you heal 1 damage.",
-            #     resource_id="catherine"
-            # ),
-            # character.Character(
-            #     name="George",
-            #     alleg=2,  # Hunter
-            #     max_damage=14,
-            #     win_cond=win_conditions.hunter,
-            #     win_cond_desc="All of the Shadows are dead.",
-            #     special=specials.george,
-            #     special_desc=("Once per game, when your turn starts, you can"
-            #                   " pick a player and damage them for the"
-            #                   " roll of a 4-sided die."),
-            #     resource_id="george"
-            # ),
-            # character.Character(
-            #     name="Fu-ka",
-            #     alleg=2,  # Hunter
-            #     max_damage=12,
-            #     win_cond=win_conditions.hunter,
-            #     win_cond_desc="All of the Shadows are dead.",
-            #     special=specials.fuka,
-            #     special_desc=("Once per game, when your turn starts, "
-            #                   "you can set the damage of any player to 7."),
-            #     resource_id="fu-ka"
-            # ),
-            # character.Character(
-            #     name="Franklin",
-            #     alleg=2,  # Hunter
-            #     max_damage=12,
-            #     win_cond=win_conditions.hunter,
-            #     win_cond_desc="All of the Shadows are dead.",
-            #     special=specials.franklin,
-            #     special_desc=("Once per game, when your turn starts, "
-            #                   "you can pick a player and damage"
-            #                   " them for the roll of a 6-sided die."),
-            #     resource_id="franklin"
-            # ),
+            character.Character(
+                name="Vampire",
+                alleg=0,  # Shadow
+                max_damage=13,
+                win_cond=win_conditions.shadow,
+                win_cond_desc="All of the Hunters (or 3 Neutrals) are dead.",
+                special=specials.vampire,
+                special_desc=("If you attack a player and inflict damage, "
+                              "you heal 2 points of your own damage."),
+                resource_id="vampire"
+            ),
+            character.Character(
+                name="Werewolf",
+                alleg=0,  # Shadow
+                max_damage=14,
+                win_cond=win_conditions.shadow,
+                win_cond_desc="All of the Hunters (or 3 Neutrals) are dead.",
+                special=specials.werewolf,
+                special_desc=("After you are attacked, "
+                              "you can counterattack immediately."),
+                resource_id="werewolf"
+            ),
+            character.Character(
+                name="Ultra Soul",
+                alleg=0,  # Shadow
+                max_damage=11,
+                win_cond=win_conditions.shadow,
+                win_cond_desc="All of the Hunters (or 3 Neutrals) are dead.",
+                special=specials.ultra_soul,
+                special_desc=("When your turn starts, you can give 3 damage"
+                              " to one player who is at"
+                              " the Underworld Gate."),
+                resource_id="ultra-soul"
+            ),
+            character.Character(
+                name="Allie",
+                alleg=1,  # Neutral
+                max_damage=8,
+                win_cond=win_conditions.allie,
+                win_cond_desc="You're not dead when the game is over.",
+                special=specials.allie,
+                special_desc="Once per game, you may fully heal your damage.",
+                resource_id="allie"
+            ),
+            character.Character(
+                name="Bob",
+                alleg=1,  # Neutral
+                max_damage=10,
+                win_cond=win_conditions.bob,
+                win_cond_desc="You have 5 or more equipment cards.",
+                special=specials.bob,
+                special_desc=("If your attack inflicts 2 or more damage, "
+                              "you may steal an Equipment card from your"
+                              " target instead of giving damage."),
+                resource_id="bob1",
+                modifiers={'min_players': 4, 'max_players': 6}
+            ),
+            character.Character(
+                name="Bob",
+                alleg=1,  # Neutral
+                max_damage=10,
+                win_cond=win_conditions.bob,
+                win_cond_desc="You have 5 or more equipment cards.",
+                special=specials.bob,
+                special_desc=("If you kill another player, "
+                              "you may take all of their Equipment cards."),
+                resource_id="bob2",
+                modifiers={'min_players': 7, 'max_players': 8}
+            ),
+            character.Character(
+                name="Catherine",
+                alleg=1,  # Neutral
+                max_damage=11,
+                win_cond=win_conditions.catherine,
+                win_cond_desc=("You are either the first to die or one of the"
+                               " last two players alive."),
+                special=specials.catherine,
+                special_desc="When your turn starts, you heal 1 damage.",
+                resource_id="catherine"
+            ),
+            character.Character(
+                name="George",
+                alleg=2,  # Hunter
+                max_damage=14,
+                win_cond=win_conditions.hunter,
+                win_cond_desc="All of the Shadows are dead.",
+                special=specials.george,
+                special_desc=("Once per game, when your turn starts, you can"
+                              " pick a player and damage them for the"
+                              " roll of a 4-sided die."),
+                resource_id="george"
+            ),
+            character.Character(
+                name="Fu-ka",
+                alleg=2,  # Hunter
+                max_damage=12,
+                win_cond=win_conditions.hunter,
+                win_cond_desc="All of the Shadows are dead.",
+                special=specials.fuka,
+                special_desc=("Once per game, when your turn starts, "
+                              "you can set the damage of any player to 7."),
+                resource_id="fu-ka"
+            ),
+            character.Character(
+                name="Franklin",
+                alleg=2,  # Hunter
+                max_damage=12,
+                win_cond=win_conditions.hunter,
+                win_cond_desc="All of the Shadows are dead.",
+                special=specials.franklin,
+                special_desc=("Once per game, when your turn starts, "
+                              "you can pick a player and damage"
+                              " them for the roll of a 6-sided die."),
+                resource_id="franklin"
+            ),
             character.Character(
                 name="Ellen",
                 alleg=2,  # Hunter
@@ -651,33 +651,33 @@ class ElementFactory:
                               "is 12 or less, you must reveal your identity."),
                 resource_id="bryan"
             ),
-            # character.Character(
-            #     name="Charles",
-            #     alleg=1,  # Neutral
-            #     max_damage=11,
-            #     win_cond=win_conditions.charles,
-            #     win_cond_desc=("At the time you kill another character, "
-            #                    "the total number of dead characters "
-            #                    "is 3 or more."),
-            #     special=specials.charles,
-            #     special_desc=("After you attack, you may give yourself 2 "
-            #                   "points of damage to attack the same "
-            #                   "character again."),
-            #     resource_id="charles"
-            # ),
-            # character.Character(
-            #     name="Daniel",
-            #     alleg=1,  # Neutral
-            #     max_damage=13,
-            #     win_cond=win_conditions.daniel,
-            #     win_cond_desc=("You are the first character to die OR "
-            #                    "all the Shadow characters are dead "
-            #                    "and you are not."),
-            #     special=specials.daniel,
-            #     special_desc=("As soon as another character dies, "
-            #                   "you must reveal your identity."),
-            #     resource_id="daniel"
-            # ),
+            character.Character(
+                name="Charles",
+                alleg=1,  # Neutral
+                max_damage=11,
+                win_cond=win_conditions.charles,
+                win_cond_desc=("At the time you kill another character, "
+                               "the total number of dead characters "
+                               "is 3 or more."),
+                special=specials.charles,
+                special_desc=("After you attack, you may give yourself 2 "
+                              "points of damage to attack the same "
+                              "character again."),
+                resource_id="charles"
+            ),
+            character.Character(
+                name="Daniel",
+                alleg=1,  # Neutral
+                max_damage=13,
+                win_cond=win_conditions.daniel,
+                win_cond_desc=("You are the first character to die OR "
+                               "all the Shadow characters are dead "
+                               "and you are not."),
+                special=specials.daniel,
+                special_desc=("As soon as another character dies, "
+                              "you must reveal your identity."),
+                resource_id="daniel"
+            ),
             character.Character(
                 name="David",
                 alleg=1,  # Neutral

@@ -95,13 +95,13 @@ class GameContext:
         # debugging - first player assignment
 
         for player in self.players:
-            if not player.ai:
-                test = [c for c in queue if c.name == 'Agnes']
-                player.setCharacter(test[0])
-                queue.remove(test[0])
-            else:
-                random.shuffle(queue)
-                player.setCharacter(queue.pop())
+            # if not player.ai:
+            #     test = [c for c in queue if c.name == 'Agnes']
+            #     player.setCharacter(test[0])
+            #     queue.remove(test[0])
+            # else:
+            random.shuffle(queue)
+            player.setCharacter(queue.pop())
             player.gc = self
 
         # testing
