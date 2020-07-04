@@ -21,6 +21,8 @@ class Deck:
 
         self.discard = []
         self.shuffle()
+        # for i in range(5):
+        #    self.addToDiscard(self.drawCard())
 
     def shuffle(self):
         random.shuffle(self.cards)
@@ -40,15 +42,21 @@ class Deck:
             return self.drawCard()
 
     def listEquipmentInDiscard(self):
-        equipment = self.discard
-        for c in equipment:
-            if not c.is_equipment:
-                equipment.remove(c)
+        equipment = []
+        for c in self.discard:
+            if c.is_equipment:
+                equipment.append(c.title)
         return equipment
 
     def addToDiscard(self, card):
         self.discard.append(card)
 
-    def takeFromDiscard(self, card):
-        self.discard.remove(card)
+    def takeFromDiscard(self, title):
+        card = None
+        for c in self.discard:
+            if c.title == title:
+                card = c
+                break
+        if card is not None:
+            self.discard.remove(card)
         return card
