@@ -175,6 +175,7 @@ var GameBoard = new Phaser.Class ({
         this.load.svg('A', gfx + 'a.svg', {width: 36.657, height: 36.657});
         this.load.svg('B', gfx + 'b.svg', {width: 36.657, height: 36.657});
         this.load.svg('C', gfx + 'c.svg', {width: 36.657, height: 36.657});
+        this.load.svg('D', gfx + 'd.svg', {width: 36.657, height: 36.657});
         this.load.svg('U', gfx + 'u.svg', {width: 36.657, height: 36.657});
         this.load.svg('V', gfx + 'v.svg', {width: 36.657, height: 36.657});
         this.load.svg('W', gfx + 'w.svg', {width: 36.657, height: 36.657});
@@ -197,19 +198,33 @@ var GameBoard = new Phaser.Class ({
         
         //this.load.svg('Allie', '/static/assets/Allie.svg', {width: 123, height: 123});
 
+        this.load.image('Allie', '/static/assets/Allie.png');
+        this.load.image('George', '/static/assets/George.png');
+        this.load.image('Fu-ka', '/static/assets/Fu-ka.png');
+        this.load.image('Valkyrie', '/static/assets/Valkyrie.png');
+        this.load.image('Vampire', '/static/assets/Vampire.png');
+        this.load.image('Bob', '/static/assets/Bob.png');
+        this.load.image('Catherine', '/static/assets/Catherine.png');
+        this.load.image('Franklin', '/static/assets/Franklin.png');
+        this.load.image('Ellen', '/static/assets/Ellen.png');
+        this.load.image('Ultra Soul', '/static/assets/Ultrasoul.png');
+        this.load.image('Werewolf', '/static/assets/Werewolf.png');
+        // this.load.image('Anon', '/static/assets/Anon.png');
+
+
         //display popups
 
-        this.load.image('Allie', gfx + 'Allie.png');
-        this.load.image('George', gfx + 'George.png');
-        this.load.image('Fu-ka', gfx + 'Fu-ka.png');
-        this.load.image('Valkyrie', gfx + 'Valkyrie.png');
-        this.load.image('Vampire', gfx + 'Vampire.png');
-        this.load.image('Bob', gfx + 'Bob.png');
-        this.load.image('Catherine', gfx + 'Catherine.png');
-        this.load.image('Franklin', gfx + 'Franklin.png');
-        this.load.image('Ellen', gfx + 'Ellen.png');
-        this.load.image('Ultra Soul', gfx + 'Ultrasoul.png');
-        this.load.image('Werewolf', gfx + 'Werewolf.png');
+        // this.load.image('Allie', gfx + 'Allie.png');
+        // this.load.image('George', gfx + 'George.png');
+        // this.load.image('Fu-ka', gfx + 'Fu-ka.png');
+        // this.load.image('Valkyrie', gfx + 'Valkyrie.png');
+        // this.load.image('Vampire', gfx + 'Vampire.png');
+        // this.load.image('Bob', gfx + 'Bob.png');
+        // this.load.image('Catherine', gfx + 'Catherine.png');
+        // this.load.image('Franklin', gfx + 'Franklin.png');
+        // this.load.image('Ellen', gfx + 'Ellen.png');
+        // this.load.image('Ultra Soul', gfx + 'Ultrasoul.png');
+        // this.load.image('Werewolf', gfx + 'Werewolf.png');
         this.load.image('Anon', gfx + 'anon.png');
 
         //display pop ups

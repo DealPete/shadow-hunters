@@ -142,19 +142,19 @@ def ellen(gc, player, turn_pos):
 
 
 def valkyrie(gc, player, turn_pos):
-    if not player.modifiers['special_used']:
+    if not player.modifiers['special_used'] and player.state == 1:
         player.modifiers['attack_dice_type'] = "4"
         player.modifiers['special_active'] = True
 
 
 def vampire(gc, player, turn_pos):
-    if not player.modifiers['special_used']:
+    if not player.modifiers['special_used'] and player.state == 1:
         player.modifiers['damage_dealt_fn'] = lambda player: player.moveDamage(2, player)
         player.modifiers['special_active'] = True
 
 
 def werewolf(gc, player, turn_pos):
-    if not player.modifiers['special_used']:
+    if not player.modifiers['special_used'] and player.state == 1:
         player.modifiers['counterattack'] = True
         player.modifiers['special_active'] = True
 
@@ -266,7 +266,7 @@ def david(gc, player, turn_pos):
 
 def emi(gc, player, turn_pos):
     # passive, can move to adjacent space
-    if not player.modifiers['special_used']:
+    if not player.modifiers['special_used'] and player.state == 1:
         player.modifiers['moves_adjacent'] = True
 
 def gregor(gc, player, turn_pos):
