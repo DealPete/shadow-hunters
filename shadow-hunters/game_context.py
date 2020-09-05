@@ -144,15 +144,14 @@ class GameContext:
             idx = self.turn_order.index(player)
             idx_left = idx
             idx_right = idx
-
-            while(idx_left == idx or self.turn_order[idx_left].state == 0 or self.turn_order[idx_left] is self):
+            while(idx_left == idx or self.turn_order[idx_left] is self):
                 if idx_left == len(self.turn_order) - 1:
                     idx_left = 0
                 else:
                     idx_left += 1
             leftNeighbour = self.turn_order[idx_left]
 
-            while(idx_right == idx or self.turn_order[idx_right].state == 0 or self.turn_order[idx_left] is self):
+            while(idx_right == idx or self.turn_order[idx_right] is self):
                 if idx_right == 0:
                     idx_right = len(self.turn_order) - 1
                 else:
