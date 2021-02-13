@@ -14,7 +14,7 @@ def allie(gc, player, turn_pos):
                       player.character.special_desc])
 
             # Full heal
-            player.setDamage(0, player)
+            player.setDamage(0)
 
             # Update modifiers
             player.modifiers['special_used'] = True
@@ -39,7 +39,7 @@ def catherine(gc, player, turn_pos):
                   player.character.special_desc])
 
         # Catherine is *required* to heal at the beginning of the turn
-        player.moveDamage(1, player)
+        player.moveDamage(1)
 
 # Hunters
 
@@ -60,7 +60,7 @@ def george(gc, player, turn_pos):
 
             # Roll and give damage to target
             roll_result = player.rollDice('4')
-            target_Player.moveDamage(-1 * roll_result, player)
+            target_Player.moveDamage(-1 * roll_result)
             gc.tell_h("{}'s Hammer gave {} {} damage!", [
                       player.user_id, target_Player.user_id, roll_result])
 
@@ -89,7 +89,7 @@ def fuka(gc, player, turn_pos):
             # Set selected player to 7 damage
             target_Player = [
                 p for p in gc.getLivePlayers() if p.user_id == target][0]
-            target_Player.setDamage(7, player)
+            target_Player.setDamage(7)
             gc.tell_h("{} gave a killing cure to {}!", [
                       player.user_id, target_Player.user_id])
 
@@ -110,7 +110,7 @@ def franklin(gc, player, turn_pos):
 
             # Roll and give damage to target
             roll_result = player.rollDice('6')
-            target_Player.moveDamage(-1 * roll_result, player)
+            target_Player.moveDamage(-1 * roll_result)
             gc.tell_h("{}'s Lightning gave {} {} damage!", [
                       player.user_id, target_Player.user_id, roll_result])
 
@@ -179,7 +179,7 @@ def ultra_soul(gc, player, turn_pos):
             if target != 'Decline':
                 target_Player = [
                     p for p in gc.getLivePlayers() if p.user_id == target][0]
-                target_Player.moveDamage(-3, player)
+                target_Player.moveDamage(-3)
                 gc.tell_h("{}'s Murder Ray gave {} {} damage!",
                           [player.user_id, target, 3])
             else:

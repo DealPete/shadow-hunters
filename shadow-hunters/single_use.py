@@ -10,7 +10,7 @@ def first_aid(args):
     args['self'].gc.ask_h(
         'confirm', {'options': ["Use First Aid"]}, args['self'].user_id)
     target_Player = args['self'].choosePlayer(include_self=True)
-    target_Player.setDamage(7, args['self'])
+    target_Player.setDamage(7)
     args['self'].gc.tell_h("{} applied {} to {}!", [
                            args['self'].user_id, args['card'].title,
                            target_Player.user_id])
@@ -22,7 +22,7 @@ def judgement(args):
     args['self'].gc.ask_h(
         'confirm', {'options': ["Unleash judgement"]}, args['self'].user_id)
     for p in args['self'].gc.getLivePlayers(lambda x: (x != args['self'])):
-        p.moveDamage(-2, args['self'])
+        p.moveDamage(-2)
 
 
 def holy_water(args):
@@ -30,7 +30,7 @@ def holy_water(args):
 
     args['self'].gc.ask_h(
         'confirm', {'options': ["Heal yourself"]}, args['self'].user_id)
-    args['self'].moveDamage(2, args['self'])
+    args['self'].moveDamage(2)
 
 
 def advent(args):
@@ -51,9 +51,9 @@ def advent(args):
         args['self'].gc.tell_h("{} did nothing.", [args['self'].user_id])
     elif decision == "Reveal and heal fully":
         args['self'].reveal()
-        args['self'].setDamage(0, args['self'])
+        args['self'].setDamage(0)
     else:
-        args['self'].setDamage(0, args['self'])
+        args['self'].setDamage(0)
 
 
 def disenchant_mirror(args):
@@ -85,7 +85,7 @@ def blessing(args):
     roll_result = args['self'].rollDice('6')
 
     # Heal target player
-    target.moveDamage(roll_result, args['self'])
+    target.moveDamage(roll_result)
     args['self'].gc.tell_h("The blessing healed {}!", [target.user_id])
 
 
@@ -108,9 +108,9 @@ def chocolate(args):
         args['self'].gc.tell_h("{} did nothing.", [args['self'].user_id])
     elif decision == "Reveal and heal fully":
         args['self'].reveal()
-        args['self'].setDamage(0, args['self'])
+        args['self'].setDamage(0)
     else:
-        args['self'].setDamage(0, args['self'])
+        args['self'].setDamage(0)
 
 
 def concealed_knowledge(args):
@@ -148,8 +148,8 @@ def bloodthirsty_spider(args):
         args['self'].gc.tell_h("{}'s {} protected them from damage!", [
                                target.user_id, "Talisman"])
     else:
-        target.moveDamage(-2, args['self'])
-    args['self'].moveDamage(-2, args['self'])
+        target.moveDamage(-2)
+    args['self'].moveDamage(-2)
 
 
 def vampire_bat(args):
@@ -163,8 +163,8 @@ def vampire_bat(args):
         args['self'].gc.tell_h("{}'s {} protected them from damage!", [
                                target.user_id, "Talisman"])
     else:
-        target.moveDamage(-2, args['self'])
-        args['self'].moveDamage(1, args['self'])
+        target.moveDamage(-2)
+        args['self'].moveDamage(1)
 
 
 def moody_goblin(args):
@@ -198,7 +198,7 @@ def diabolic_ritual(args):
         args['self'].gc.tell_h("{} did nothing.", [args['self'].user_id])
     else:
         args['self'].reveal()
-        args['self'].setDamage(0, args['self'])
+        args['self'].setDamage(0)
 
 
 def banana_peel(args):
@@ -227,7 +227,7 @@ def banana_peel(args):
 
     else:
         # Take 1 damage
-        args['self'].moveDamage(-1, args['self'])
+        args['self'].moveDamage(-1)
         args['self'].gc.tell_h("{} took {} damage.", [
                                args['self'].user_id, "1"])
 
@@ -260,7 +260,7 @@ def dynamite(args):
                 args['self'].gc.tell_h("{}'s {} protected them from damage!", [
                                        p.user_id, "Talisman"])
             else:
-                p.moveDamage(-3, args['self'])
+                p.moveDamage(-3)
 
 
 def spiritual_doll(args):
@@ -277,10 +277,10 @@ def spiritual_doll(args):
 
     # If roll is >= 5, user takes 3 damage. Otherwise, target takes 3 damage.
     if roll_result >= 5:
-        args['self'].moveDamage(-3, args['self'])
+        args['self'].moveDamage(-3)
         args['self'].gc.tell_h('The {} backfired on {}!', [
                                args['card'].title, args['self'].user_id])
     else:
-        target.moveDamage(-3, args['self'])
+        target.moveDamage(-3)
         args['self'].gc.tell_h('The {} cursed {}!', [
                                args['card'].title, target.user_id])

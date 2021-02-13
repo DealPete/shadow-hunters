@@ -58,7 +58,7 @@ def blackmail(args):
         elif decision == "Receive 1 damage":
 
             # Target takes 1 damage
-            new_damage = target.moveDamage(-1, args['self'])
+            new_damage = target.moveDamage(-1)
             target.gc.tell_h("{} took {} damage!",
                              [target.user_id, "1"])
         else:
@@ -125,7 +125,7 @@ def greed(args):
         elif decision == "Receive 1 damage":
 
             # Target takes 1 damage
-            new_damage = target.moveDamage(-1, args['self'])
+            new_damage = target.moveDamage(-1)
             target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
 
         else:
@@ -199,7 +199,7 @@ def anger(args):
         elif decision == "Receive 1 damage":
 
             # Target takes 1 damage
-            new_damage = target.moveDamage(-1, args['self'])
+            new_damage = target.moveDamage(-1)
             target.gc.tell_h("{} took {} damage!",
                              [target.user_id, "1"])
 
@@ -238,7 +238,7 @@ def slap(args):
         decision = target.gc.ask_h(
             'yesno', data, target.user_id)['value']
         if decision == "Receive 1 damage":
-            new_damage = target.moveDamage(-1, args['self'])
+            new_damage = target.moveDamage(-1)
             target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
         else:
             target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -256,7 +256,7 @@ def slap(args):
         target.gc.ask_h('confirm', data, target.user_id)
 
         # Give 1 damage to target
-        new_damage = target.moveDamage(-1, args['self'])
+        new_damage = target.moveDamage(-1)
         target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
 
     else:
@@ -291,7 +291,7 @@ def spell(args):
         decision = target.gc.ask_h(
             'yesno', data, target.user_id)['value']
         if decision == "Receive 1 damage":
-            new_damage = target.moveDamage(-1, args['self'])
+            new_damage = target.moveDamage(-1)
             target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
         else:
             target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -309,7 +309,7 @@ def spell(args):
         target.gc.ask_h('confirm', data, target.user_id)
 
         # Give 1 damage to target
-        new_damage = target.moveDamage(-1, args['self'])
+        new_damage = target.moveDamage(-1)
         target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
 
     else:
@@ -347,7 +347,7 @@ def exorcism(args):
         decision = target.gc.ask_h(
             'yesno', data, target.user_id)['value']
         if decision == "Receive 2 damage":
-            new_damage = target.moveDamage(-2, args['self'])
+            new_damage = target.moveDamage(-2)
             target.gc.tell_h("{} took {} damage!", [target.user_id, "2"])
         else:
             target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -364,7 +364,7 @@ def exorcism(args):
         target.gc.ask_h('confirm', data, target.user_id)
 
         # Give 2 damage to target
-        new_damage = target.moveDamage(-2, args['self'])
+        new_damage = target.moveDamage(-2)
         target.gc.tell_h("{} took {} damage!", [target.user_id, "2"])
 
     else:
@@ -403,7 +403,7 @@ def nurturance(args):
             decision = target.gc.ask_h(
                 'yesno', data, target.user_id)['value']
             if decision == "Receive 1 damage":
-                new_damage = target.moveDamage(-1, args['self'])
+                new_damage = target.moveDamage(-1)
                 target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
             else:
                 target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -412,7 +412,7 @@ def nurturance(args):
             decision = target.gc.ask_h(
                 'yesno', data, target.user_id)['value']
             if decision == "Heal 1 damage":
-                new_damage = target.moveDamage(1, args['self'])
+                new_damage = target.moveDamage(1)
                 target.gc.tell_h("{} healed {} damage!", [target.user_id, "1"])
             else:
                 target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -432,7 +432,7 @@ def nurturance(args):
             target.gc.ask_h('confirm', data, target.user_id)
 
             # Give target 1 damage
-            new_damage = target.moveDamage(-1, args['self'])
+            new_damage = target.moveDamage(-1)
             target.gc.tell_h("{} took {} damage!",
                              [target.user_id, "1"])
 
@@ -480,7 +480,7 @@ def aid(args):
             decision = target.gc.ask_h(
                 'yesno', data, target.user_id)['value']
             if decision == "Receive 1 damage":
-                new_damage = target.moveDamage(-1, args['self'])
+                new_damage = target.moveDamage(-1)
                 target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
             else:
                 target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -489,7 +489,7 @@ def aid(args):
             decision = target.gc.ask_h(
                 'yesno', data, target.user_id)['value']
             if decision == "Heal 1 damage":
-                new_damage = target.moveDamage(1, args['self'])
+                new_damage = target.moveDamage(1)
                 target.gc.tell_h("{} healed {} damage!", [target.user_id, "1"])
             else:
                 target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -509,7 +509,7 @@ def aid(args):
             target.gc.ask_h('confirm', data, target.user_id)
 
             # Give target 1 damage
-            new_damage = target.moveDamage(-1, args['self'])
+            new_damage = target.moveDamage(-1)
             target.gc.tell_h("{} took {} damage!",
                              [target.user_id, "1"])
 
@@ -520,7 +520,7 @@ def aid(args):
             target.gc.ask_h('confirm', data, target.user_id)
 
             # Heal target 1 damage
-            new_damage = target.moveDamage(1, args['self'])
+            new_damage = target.moveDamage(1)
             target.gc.tell_h("{} healed {} damage!",
                              [target.user_id, "1"])
 
@@ -557,7 +557,7 @@ def huddle(args):
             decision = target.gc.ask_h(
                 'yesno', data, target.user_id)['value']
             if decision == "Receive 1 damage":
-                new_damage = target.moveDamage(-1, args['self'])
+                new_damage = target.moveDamage(-1)
                 target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
             else:
                 target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -566,7 +566,7 @@ def huddle(args):
             decision = target.gc.ask_h(
                 'yesno', data, target.user_id)['value']
             if decision == "Heal 1 damage":
-                new_damage = target.moveDamage(1, args['self'])
+                new_damage = target.moveDamage(1)
                 target.gc.tell_h("{} healed {} damage!", [target.user_id, "1"])
             else:
                 target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -586,7 +586,7 @@ def huddle(args):
             target.gc.ask_h('confirm', data, target.user_id)
 
             # Give target 1 damage
-            new_damage = target.moveDamage(-1, args['self'])
+            new_damage = target.moveDamage(-1)
             target.gc.tell_h("{} took {} damage!",
                              [target.user_id, "1"])
 
@@ -597,7 +597,7 @@ def huddle(args):
             target.gc.ask_h('confirm', data, target.user_id)
 
             # Heal target 1 damage
-            new_damage = target.moveDamage(1, args['self'])
+            new_damage = target.moveDamage(1)
             target.gc.tell_h("{} healed {} damage!",
                              [target.user_id, "1"])
 
@@ -633,7 +633,7 @@ def lesson(args):
         decision = target.gc.ask_h(
             'yesno', data, target.user_id)['value']
         if decision == "Receive 2 damage":
-            new_damage = target.moveDamage(-2, args['self'])
+            new_damage = target.moveDamage(-2)
             target.gc.tell_h("{} took {} damage!", [target.user_id, "2"])
         else:
             target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -648,7 +648,7 @@ def lesson(args):
         target.gc.ask_h('confirm', data, target.user_id)
 
         # Give 2 damage to target
-        new_damage = target.moveDamage(-2, args['self'])
+        new_damage = target.moveDamage(-2)
         target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
 
     else:
@@ -683,7 +683,7 @@ def bully(args):
         decision = target.gc.ask_h(
             'yesno', data, target.user_id)['value']
         if decision == "Receive 1 damage":
-            new_damage = target.moveDamage(-1, args['self'])
+            new_damage = target.moveDamage(-1)
             target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
         else:
             target.gc.tell_h("{} did nothing.", [target.user_id])
@@ -698,7 +698,7 @@ def bully(args):
         target.gc.ask_h('confirm', data, target.user_id)
 
         # Give 1 damage to target
-        new_damage = target.moveDamage(-1, args['self'])
+        new_damage = target.moveDamage(-1)
         target.gc.tell_h("{} took {} damage!", [target.user_id, "1"])
 
     else:
