@@ -638,60 +638,60 @@ class ElementFactory:
                               "your immediate left wins.\'"),
                 resource_id="agnes"
             ),
-            character.Character(
-                name="Bryan",
-                alleg=1,  # Neutral
-                max_damage=10,
-                win_cond=win_conditions.bryan,
-                win_cond_desc=("Your attack kills a character whose HP "
-                               "is 13 or more OR you are on the Erstwhile "
-                               "Altar when the game is over."),
-                special=specials.bryan,
-                special_desc=("If your attack kills a character whose HP "
-                              "is 12 or less, you must reveal your identity."),
-                resource_id="bryan"
-            ),
-            character.Character(
-                name="Charles",
-                alleg=1,  # Neutral
-                max_damage=11,
-                win_cond=win_conditions.charles,
-                win_cond_desc=("At the time you kill another character, "
-                               "the total number of dead characters "
-                               "is 3 or more."),
-                special=specials.charles,
-                special_desc=("After you attack, you may give yourself 2 "
-                              "points of damage to attack the same "
-                              "character again."),
-                resource_id="charles"
-            ),
-            character.Character(
-                name="Daniel",
-                alleg=1,  # Neutral
-                max_damage=13,
-                win_cond=win_conditions.daniel,
-                win_cond_desc=("You are the first character to die OR "
-                               "all the Shadow characters are dead "
-                               "and you are not."),
-                special=specials.daniel,
-                special_desc=("As soon as another character dies, "
-                              "you must reveal your identity."),
-                resource_id="daniel"
-            ),
-            character.Character(
-                name="David",
-                alleg=1,  # Neutral
-                max_damage=13,
-                win_cond=win_conditions.david,
-                win_cond_desc=("You have 3 or more of the following: "
-                               "\'Talisman\', \'Spear of Longinus\', "
-                               "\'Holy Robe\', \'Silver Rosary\'."),
-                special=specials.david,
-                special_desc=("You may take one Equipment card "
-                              "of your choice from any discard "
-                              "pile. Only once per game."),
-                resource_id="david"
-            ),
+            # character.Character(
+            #     name="Bryan",
+            #     alleg=1,  # Neutral
+            #     max_damage=10,
+            #     win_cond=win_conditions.bryan,
+            #     win_cond_desc=("Your attack kills a character whose HP "
+            #                    "is 13 or more OR you are on the Erstwhile "
+            #                    "Altar when the game is over."),
+            #     special=specials.bryan,
+            #     special_desc=("If your attack kills a character whose HP "
+            #                   "is 12 or less, you must reveal your identity."),
+            #     resource_id="bryan"
+            # ),
+            # character.Character(
+            #     name="Charles",
+            #     alleg=1,  # Neutral
+            #     max_damage=11,
+            #     win_cond=win_conditions.charles,
+            #     win_cond_desc=("At the time you kill another character, "
+            #                    "the total number of dead characters "
+            #                    "is 3 or more."),
+            #     special=specials.charles,
+            #     special_desc=("After you attack, you may give yourself 2 "
+            #                   "points of damage to attack the same "
+            #                   "character again."),
+            #     resource_id="charles"
+            # ),
+            # character.Character(
+            #     name="Daniel",
+            #     alleg=1,  # Neutral
+            #     max_damage=13,
+            #     win_cond=win_conditions.daniel,
+            #     win_cond_desc=("You are the first character to die OR "
+            #                    "all the Shadow characters are dead "
+            #                    "and you are not."),
+            #     special=specials.daniel,
+            #     special_desc=("As soon as another character dies, "
+            #                   "you must reveal your identity."),
+            #     resource_id="daniel"
+            # ),
+            # character.Character(
+            #     name="David",
+            #     alleg=1,  # Neutral
+            #     max_damage=13,
+            #     win_cond=win_conditions.david,
+            #     win_cond_desc=("You have 3 or more of the following: "
+            #                    "\'Talisman\', \'Spear of Longinus\', "
+            #                    "\'Holy Robe\', \'Silver Rosary\'."),
+            #     special=specials.david,
+            #     special_desc=("You may take one Equipment card "
+            #                   "of your choice from any discard "
+            #                   "pile. Only once per game."),
+            #     resource_id="david"
+            # ),
             character.Character(
                 name="Emi",
                 alleg=2,  # Hunter
