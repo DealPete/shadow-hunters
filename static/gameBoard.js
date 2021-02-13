@@ -80,7 +80,8 @@ var GameBoard = new Phaser.Class ({
     preload: function () {
         // url where gfx resources are stored
         var gfx = "https://d2naeox1pchp13.cloudfront.net/";
-        // var gfx = "https://0.0.0.0/static/assets/";
+        //var lcl = "https://0.0.0.0/static/assets/";
+        var lcl = "/static/assets/";
 
         // loading screen
         var progressBar = this.add.graphics();
@@ -186,30 +187,30 @@ var GameBoard = new Phaser.Class ({
         // possible later implementation: loop through dumped list of playable characters to load images?
 
         
-        this.load.image('Agnes', '/static/assets/Agnes.png');
-        this.load.image('Bryan', '/static/assets/Bryan.png');
-        this.load.image('Charles', '/static/assets/Charles.png');
-        this.load.image('Daniel', '/static/assets/Daniel.png');
-        this.load.image('David', '/static/assets/David.png');
-        this.load.image('Emi', '/static/assets/Emi.png');
-        this.load.image('Gregor', '/static/assets/Gregor.png');
-        this.load.image('Unknown', '/static/assets/Unknown.png');
-        this.load.image('Wight', '/static/assets/Wight.png');
+        this.load.image('Agnes', lcl + 'Agnes.png');
+        this.load.image('Bryan', lcl + 'Bryan.png');
+        this.load.image('Charles', lcl + 'Charles.png');
+        this.load.image('Daniel', lcl + 'Daniel.png');
+        this.load.image('David', lcl + 'David.png');
+        this.load.image('Emi', lcl + 'Emi.png');
+        this.load.image('Gregor', lcl + 'Gregor.png');
+        this.load.image('Unknown', lcl + 'Unknown.png');
+        this.load.image('Wight', lcl + 'Wight.png');
         
-        //this.load.svg('Allie', '/static/assets/Allie.svg', {width: 123, height: 123});
+        //this.load.svg('Allie', lcl + 'Allie.svg', {width: 123, height: 123});
 
-        this.load.image('Allie', '/static/assets/Allie.png');
-        this.load.image('George', '/static/assets/George.png');
-        this.load.image('Fu-ka', '/static/assets/Fu-ka.png');
-        this.load.image('Valkyrie', '/static/assets/Valkyrie.png');
-        this.load.image('Vampire', '/static/assets/Vampire.png');
-        this.load.image('Bob', '/static/assets/Bob.png');
-        this.load.image('Catherine', '/static/assets/Catherine.png');
-        this.load.image('Franklin', '/static/assets/Franklin.png');
-        this.load.image('Ellen', '/static/assets/Ellen.png');
-        this.load.image('Ultra Soul', '/static/assets/Ultrasoul.png');
-        this.load.image('Werewolf', '/static/assets/Werewolf.png');
-        // this.load.image('Anon', '/static/assets/Anon.png');
+        this.load.image('Allie', lcl + 'Allie.png');
+        this.load.image('George', lcl + 'George.png');
+        this.load.image('Fu-ka', lcl + 'Fu-ka.png');
+        this.load.image('Valkyrie', lcl + 'Valkyrie.png');
+        this.load.image('Vampire', lcl + 'Vampire.png');
+        this.load.image('Bob', lcl + 'Bob.png');
+        this.load.image('Catherine', lcl + 'Catherine.png');
+        this.load.image('Franklin', lcl + 'Franklin.png');
+        this.load.image('Ellen', lcl + 'Ellen.png');
+        this.load.image('Ultra Soul', lcl + 'Ultrasoul.png');
+        this.load.image('Werewolf', lcl + 'Werewolf.png');
+        // this.load.image('Anon', lcl + 'Anon.png');
 
 
         //display popups

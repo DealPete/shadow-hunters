@@ -22,6 +22,7 @@ class GameContext:
         self.round_count = 0
 
         # Instantiate characters
+        random.shuffle(characters)
         self.characters = characters
         if len(self.players) <= 6:  # hack to send bobs
             self.characters = [
@@ -29,7 +30,7 @@ class GameContext:
         else:
             self.characters = [
                 ch for ch in self.characters if ch.resource_id != "bob1"]
-        self.characters.sort(key=lambda x: -x.max_damage)
+#        self.characters.sort(key=lambda x: -x.max_damage)
 
         # Instantiate cards
         self.black_cards = black_cards
@@ -141,22 +142,22 @@ class GameContext:
         if player.location is None:
             return None
         else:
-            idx = self.turn_order.index(player)
-            idx_left = idx
-            idx_right = idx
-            while(idx_left == idx or self.turn_order[idx_left] is self):
-                if idx_left == len(self.turn_order) - 1:
-                    idx_left = 0
-                else:
-                    idx_left += 1
-            leftNeighbour = self.turn_order[idx_left]
+            idx = self.players.index(player)
+            idx_left = idx + 1
+#            while(idx_left == idx or self.turn_order[idx_left] is self):
+            if idx_left == len(self.turn_order):
+                idx_left = 0
+#                else:
+#                    idx_left += 1 */
+            leftNeighbour = self.players[idx_left]
 
-            while(idx_right == idx or self.turn_order[idx_right] is self):
-                if idx_right == 0:
-                    idx_right = len(self.turn_order) - 1
-                else:
-                    idx_right -= 1
-            rightNeighbour = self.turn_order[idx_right]
+            idx_right = idx - 1
+#            while(idx_right == idx or self.turn_order[idx_right] is self):
+            if idx_right == -1:
+                idx_right = len(self.turn_order) - 1
+#                else:
+#                    idx_right -= 1
+            rightNeighbour = self.players[idx_right]
 
             return [leftNeighbour, rightNeighbour]
 
