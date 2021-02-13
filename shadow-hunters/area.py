@@ -53,7 +53,7 @@ def weird_woods_action(gc, player):
     if amount == "Heal 1 damage":
         gc.tell_h("The power of the {} healed {}!", [
                   "Weird Woods", target_Player.user_id])
-        target_Player.moveDamage(1, player)
+        target_Player.moveDamage(1)
     else:
         if target_Player.hasEquipment("Fortune Brooch"):
             gc.tell_h("{}'s {} protected them from damage!", [
@@ -61,7 +61,7 @@ def weird_woods_action(gc, player):
         else:
             gc.tell_h("The power of the {} damaged {}!", [
                       "Weird Woods", target_Player.user_id])
-            target_Player.moveDamage(-2, player)
+            target_Player.moveDamage(-2)
 
 
 def erstwhile_altar_action(gc, player):

@@ -579,7 +579,7 @@ class Player:
 
         return dealt
 
-    def moveDamage(self, damage_change, attacker):
+    def moveDamage(self, damage_change, attacker=None):
 
         # Tell frontend to animate sprite
         if damage_change < 0:
@@ -592,7 +592,7 @@ class Player:
         self.checkDeath(attacker)
         return self.damage
 
-    def setDamage(self, damage, attacker):
+    def setDamage(self, damage, attacker=None):
         if damage < self.damage:
             self.gc.show_h({'type': 'damage', 'player': self.dump()})
         self.damage = damage
@@ -622,7 +622,8 @@ class Player:
         self.gc.show_h(display_data)
 
         # Equipment stealing if dead player has equipment
-        if self.equipment and self != attacker:
+        # equipment is only stolen if killed by an attack!
+        if self.equipment and self != attacker and attacker is not None:
 
             has_silver_rosary = ("Silver Rosary" in [
                                  e.title for e in attacker.equipment])
